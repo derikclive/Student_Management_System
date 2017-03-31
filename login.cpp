@@ -27,7 +27,7 @@ int main()
 {
     clrscr();
     int ch;
-    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\tEnter choice : ";
+    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\tEnter choice : ";
     cin>>ch;
     switch(ch)
     {
@@ -53,6 +53,24 @@ int main()
                   }
                 }
               }break;
+      case 3:{
+              clrscr();
+              cout<<"\n\n\n\t\t\t1. Login\n\n\t\t\t2. Register\n\n\t\t\tEnter Choice : ";
+              cin>>ch;
+              if(ch==1)
+              {
+                stu_login();
+              }
+              else if(ch==2)
+              {
+                int sucess = stu_register();
+                if(sucess)
+                {
+                  stu_login();
+                }
+              }
+                break;
+            }
       default : cout<<"\n\n\t\tEnter a valid choice.";
     }
 
@@ -62,7 +80,7 @@ int main()
 
 void display_options()
 {
-    
+
         int ch;
         do
         {

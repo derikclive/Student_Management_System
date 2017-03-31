@@ -1,6 +1,9 @@
 #include<iostream>
 #include<cstdio>
+#include<cstring>
 using namespace std;
+
+char *get_pass(char *);
 
 class subject
 {
@@ -17,8 +20,7 @@ public:
       credits = 0;
       sem = 1;
     }
-
-    char *get_code()
+char *get_code()
     {
       return code;
     }
@@ -36,6 +38,9 @@ public:
         cout<<"\n\nEnter the semester: ";
         cin>>sem;
     }
+
+    friend istream &operator >> (istream& is, subject &sub);
+
     int get_credit()
     {
         return credits;
@@ -46,6 +51,16 @@ public:
     }
     //void get_details(char *);
 };
+
+  istream &operator >> (istream& is, subject &sub){
+    cout<<"\n\nEnter the subject title: ";
+    cin.ignore();
+    cin.getline(sub.title, 50);
+    cout<<"\n\nEnter the number of credits: ";
+    cin>>sub.credits;
+    cout<<"\n\nEnter the semester: ";
+    cin>>sub.sem;
+  }
 
 class grade
 {
@@ -86,6 +101,8 @@ public:
     {
       return grd;
     }
+
+    friend istream& operator >> (istream &i, grade &g);
 };
 
 class student
@@ -96,6 +113,7 @@ class student
     float cgpa;
     int sem;
     int n;
+    char password[50];
 public:
 
     student()
@@ -104,6 +122,7 @@ public:
       n=0;
       cgpa=0.0;
       sem = 1;
+      strcpy(password, "\0");
     }
 
     void get_details();
@@ -164,6 +183,43 @@ public:
         cgpa=h;
     }
 
+    int chk_password(char *str)
+    {
+      return strcmp(str, password)==0;
+    }
+
+    void get_password()
+    {
+      int suc = 0;
+      char pass[50], repass[50];
+      do {
+        cout<<"\n\t\tEnter the password : ";
+        strcpy(pass, get_pass(pass));
+        cout<<"\n\n\t\tRe-enter password : ";
+        strcpy(repass, get_pass(repass));
+        if(strcmp(pass, repass)==0)
+        {
+          if(strlen(pass)<7)
+            cout<<"\n\nPassword length is too short.";
+          else
+          {
+            suc = 1;
+            strcpy(password, pass);
+          }
+        }
+        else
+          cout<<"\n\nPasswords dont match.";
+      } while(!suc);
+    }
+
+    int present()
+    {
+      if(strcmp(password, "\0")==0)
+       return 0;
+     return 1;
+    }
+
+    friend istream& operator >> (istream &i, student &s);
 };
 
 
@@ -173,12 +229,18 @@ inline void grade::get_course(int i)
     cout<<"\n\t"<<i<<". Enter the Course Code : ";
     cin>>course_code;
 }
+istream& operator >> (istream &i, grade &g){
+
+  cout<<"\n\t"<<i<<". Enter the Course Code : ";
+  cin>>g.course_code;
+
+  return i;
+}
 
 
 
 inline void student::get_details()
 {
-    int n;
     //cin>>noskipws;
     cin.ignore();
     cout<<"\n\n\t\tEnter the student name : ";
@@ -189,4 +251,111 @@ inline void student::get_details()
     cin>>section;
     cout<<"\n\n\t\tEnter the semester :";
     cin>>sem;
+}
+istream& operator >> (istream &i, student &s){
+  //cin>>noskipws;
+  cin.ignore();
+  cout<<"\n\n\t\tEnter the student name : ";
+  cin.getline(s.name,50);
+  cout<<"\n\n\t\tEnter the registration number : ";
+  cin>>s.reg_no;
+  cout<<"\n\n\t\tEnter the section : ";
+  cin>>s.section;
+  cout<<"\n\n\t\tEnter the semester :";
+  cin>>s.sem;
+}
+
+
+void stu_login()
+{
+  clrscr();
+  char user_name[50], pass[50],ch;
+  fstream fp;
+  student temp;
+  int flag = 0, i=0;
+  fp.open("student.dat",ios::in);
+  cout<<"\n\n\n\t\t\tUser_Name : ";
+  cin>>user_name;
+  cout<<"\n\n\t\t\tPassword : ";
+  ch = getch();
+  while(ch!=10)
+  {
+      if(ch == 127)
+      {
+          if(i!=0)
+          {
+              cout<<"\b \b";
+              i--;
+          }
+      }
+      else
+      {
+          pass[i++] = ch;
+          cout<<'*';
+      }
+      ch = getch();
+  }
+  pass[i] = '\0';
+  while(fp.read((char *)&temp,sizeof(student)))
+  {
+      if(strcmp(user_name,temp.get_id())==0)
+      {
+          if(temp.present())
+          {
+          if(temp.chk_password(pass)==1)
+              flag = 1;
+          else
+              flag = 0;
+          break;
+        }
+        else
+        {
+          cout<<"\n\n\t\tPlease register first.";
+          return;
+        }
+      }
+  }
+  if(!flag)
+      cout<<"\n\t\t\tInvalid user name or password.";
+  fp.close();
+  if(flag)
+    cout<<"\nLogged in.";
+}
+
+
+int stu_register()
+{
+  clrscr();
+  char user_name[50];
+  fstream fp, f;
+  student temp;
+  int flag = 0;
+  fp.open("student.dat", ios::in);
+  f.open("temp.dat", ios::out);
+  cout<<"\n\n\t\tEnter your ID : ";
+  cin>>user_name;
+  while(fp.read((char *)&temp,sizeof(student)))
+  {
+      if(strcmp(user_name,temp.get_id())==0)
+      {
+        if(temp.present())
+        {
+           cout<<"\n The ID "<<user_name<<" has aldready been registerd.";
+           return 1;
+        }
+        else
+        {
+          flag = 1;
+          temp.get_password();
+        }
+      }
+      f.write((char *)&temp, sizeof(student));
+  }
+  if(flag == 0)
+    cout<<"\n\n\t\tThe entered ID is invalid.";
+  f.close();
+  fp.close();
+  remove("student.dat");
+  rename("temp.dat", "student.dat");
+  return flag;
 }

@@ -43,10 +43,8 @@ public:
     do {
       cout<<"\n\t\tEnter the password : ";
       strcpy(pass, get_pass(pass));
-      cout<<pass;
       cout<<"\n\n\t\tRe-enter password : ";
       strcpy(repass, get_pass(repass));
-      cout<<repass;
       if(strcmp(pass, repass)==0)
       {
         if(strlen(pass)<7)

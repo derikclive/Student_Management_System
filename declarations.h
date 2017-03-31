@@ -3,8 +3,6 @@
 #include<unistd.h>
 
 char getch(){
-    /*#include <unistd.h>   //_getch*/
-    /*#include <termios.h>  //_getch*/
     char buf=0;
     struct termios old={0};
     fflush(stdout);
