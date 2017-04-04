@@ -1,9 +1,11 @@
 #include<iostream>
 #include<cstdio>
 #include<cstring>
+
 using namespace std;
 
 char *get_pass(char *);
+//class user;
 
 class subject
 {
@@ -20,6 +22,7 @@ public:
       credits = 0;
       sem = 1;
     }
+
 char *get_code()
     {
       return code;
@@ -105,7 +108,7 @@ public:
     friend istream& operator >> (istream &i, grade &g);
 };
 
-class student
+class student :public user
 {
     char name[50];
     char section;
@@ -113,9 +116,9 @@ class student
     float cgpa;
     int sem;
     int n;
-    char password[50];
 public:
-
+    int login();
+    int Register();
     student()
     {
       strcpy(name, "\0");
@@ -123,6 +126,15 @@ public:
       cgpa=0.0;
       sem = 1;
       strcpy(password, "\0");
+    }
+
+    student(char id[10], char password[10], char name[50], char section, grade grad[10], float cgpa, int sem, int n):user(id,password){
+      strcpy(this->name,name);
+      this->section=section;
+      //copy all grades
+      this->cgpa=cgpa;
+      this->sem=sem;
+      this->n=n;
     }
 
     void get_details();
@@ -266,7 +278,7 @@ istream& operator >> (istream &i, student &s){
 }
 
 
-void stu_login()
+int student::login()
 {
   clrscr();
   char user_name[50], pass[50],ch;
@@ -311,7 +323,7 @@ void stu_login()
         else
         {
           cout<<"\n\n\t\tPlease register first.";
-          return;
+          return 0;
         }
       }
   }
@@ -320,10 +332,11 @@ void stu_login()
   fp.close();
   if(flag)
     cout<<"\nLogged in.";
+    return 1;
 }
 
 
-int stu_register()
+int student::Register()
 {
   clrscr();
   char user_name[50];
