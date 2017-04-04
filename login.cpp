@@ -7,17 +7,21 @@
 #define clrscr() system("clear");
 using namespace std;
 
+class user;
 class admin;
 class subject;
 class grade;
 class student;
+
 char getch();
 int main();
 
+#include "user.cpp"
 #include "declarations.h"
 #include "student.cpp"
 #include "professor.cpp"
 #include "admin_login.cpp"
+
 
 int ad_login();
 void fac_login();
@@ -55,18 +59,21 @@ int main()
               }break;
       case 3:{
               clrscr();
+              user *u;
+              student s;
+              u = &s;
               cout<<"\n\n\n\t\t\t1. Login\n\n\t\t\t2. Register\n\n\t\t\tEnter Choice : ";
               cin>>ch;
               if(ch==1)
               {
-                stu_login();
+                  int a = u->login();
               }
               else if(ch==2)
               {
-                int sucess = stu_register();
+                int sucess = u->Register();
                 if(sucess)
                 {
-                  stu_login();
+                  u->login();
                 }
               }
                 break;

@@ -1,22 +1,24 @@
 #include<iostream>
 #include<string.h>
-using namespace std;
 
+using namespace std;
+//class user;
 char *get_pass(char *);
 
-class Professor
+class Professor : public user
 {
   char name[50];
-  char id[10];
-  char password[50];
   subject sub;
 public:
 
   Professor()
   {
     strcpy(name, "\0");
-    strcpy(id,"\0");
-    strcpy(password, "\0");
+
+  }
+
+  Professor(char id[10],char password[50], char name[50]):user(id,password){
+    strcpy(this->name,name);
   }
 
   char *get_id()
