@@ -9,14 +9,12 @@
 using namespace std;
 
 
-class admin
+class admin: public user  
 {
-    char user_name[50];
-    char password[50];
 public:
     char *get_user()
     {
-        return user_name;
+        return id;
     }
     char *get_password()
     {
@@ -24,8 +22,8 @@ public:
     }
     void set_user(char *user)
     {
-        strcpy(user_name, user);
-        cout<<user_name;
+        strcpy(id, user);
+
     }
     void set_password(char *pass)
     {

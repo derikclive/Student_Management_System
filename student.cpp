@@ -138,10 +138,10 @@ public:
     }
 
     void get_details();
-    char reg_no[50];
+
     char *get_id()
     {
-        return reg_no;
+        return id;
     }
     char *get_name()
     {
@@ -258,7 +258,7 @@ inline void student::get_details()
     cout<<"\n\n\t\tEnter the student name : ";
     cin.getline(name,50);
     cout<<"\n\n\t\tEnter the registration number : ";
-    cin>>reg_no;
+    cin>>id;
     cout<<"\n\n\t\tEnter the section : ";
     cin>>section;
     cout<<"\n\n\t\tEnter the semester :";
@@ -270,7 +270,7 @@ istream& operator >> (istream &i, student &s){
   cout<<"\n\n\t\tEnter the student name : ";
   cin.getline(s.name,50);
   cout<<"\n\n\t\tEnter the registration number : ";
-  cin>>s.reg_no;
+  cin>>s.id;
   cout<<"\n\n\t\tEnter the section : ";
   cin>>s.section;
   cout<<"\n\n\t\tEnter the semester :";

@@ -54,7 +54,7 @@ public:
         else
         {
           suc = 1;
-          strcpy(password, pass);
+          strcpy(this->password, pass);
         }
       }
       else
@@ -64,7 +64,7 @@ public:
 
  int present()
  {
-   if(strcmp(password, "\0")==0)
+   if(strcmp(this->password, "\0")==0)
     return 0;
   return 1;
  }
@@ -74,15 +74,17 @@ public:
   void viewstudents();
   void modify_marks();
   void disp();
+  int login();
+  int Register();
 };
 
 void Professor::get_details()
 {
   cin.ignore();
   cout<<"\nEnter the name of the Faculty : ";
-  cin.getline(name, 50);
+  cin.getline(this->name, 50);
   cout<<"\nEnter the ID : ";
-  cin>>id;
+  cin>>this->id;
 }
 
 
@@ -198,7 +200,7 @@ void Professor::disp()
  }while(swit!=5);
 }
 
-void fac_login()
+int Professor::login()
 {
   clrscr();
   char user_name[50], pass[50],ch;
@@ -243,7 +245,7 @@ void fac_login()
         else
         {
           cout<<"\n\n\t\tPlease register first.";
-          return;
+          return 0;
         }
       }
   }
@@ -252,10 +254,11 @@ void fac_login()
   fp.close();
   if(flag)
     temp.disp();
+  return 1;
 }
 
 
-int fac_register()
+int Professor::Register()
 {
   clrscr();
   char user_name[50];

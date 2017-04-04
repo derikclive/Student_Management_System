@@ -33,6 +33,7 @@ int main()
     int ch;
     cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\tEnter choice : ";
     cin>>ch;
+    user *u;
     switch(ch)
     {
       case 1:{
@@ -43,43 +44,33 @@ int main()
               break;
       case 2:{
                 clrscr();
-                cout<<"\n\n\n\t\t\t1. Login\n\n\t\t\t2. Register\n\n\t\t\tEnter Choice : ";
-                cin>>ch;
-                if(ch==1)
-                { fac_login();
-                }
-                else if(ch==2)
-                {
-                  int sucess = fac_register();
-                  if(sucess)
-                  {
-                     fac_login();
-                  }
-                }
-              }break;
+                Professor p;
+                u = &p;
+                break;
+              }
       case 3:{
               clrscr();
-              user *u;
               student s;
               u = &s;
-              cout<<"\n\n\n\t\t\t1. Login\n\n\t\t\t2. Register\n\n\t\t\tEnter Choice : ";
-              cin>>ch;
-              if(ch==1)
-              {
-                  int a = u->login();
-              }
-              else if(ch==2)
-              {
-                int sucess = u->Register();
-                if(sucess)
-                {
-                  u->login();
-                }
-              }
-                break;
+              break;
             }
       default : cout<<"\n\n\t\tEnter a valid choice.";
     }
+    if(ch==2||ch==3)
+    {
+      cout<<"\n\n\n\t\t\t1. Login\n\n\t\t\t2. Register\n\n\t\t\tEnter Choice : ";
+      cin>>ch;
+      if(ch==1)
+        u->login();
+      else if(ch==2)
+      {
+        int sucess = u->Register();
+        if(sucess)
+        {
+           u->login();
+        }
+      }
+    } 
 
     return 0;
 }
