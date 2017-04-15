@@ -37,7 +37,13 @@ public:
     void enroll_student();
     void get_gradesheet();
     void get_ranklist();
+    void search(char *name);
+    void search(char *id,int type);
+    void search();
+
 };
+
+
 
 int ad_login()
 {
@@ -85,7 +91,104 @@ int ad_login()
     return flag;
 }
 
+void admin::search(char * name)
+{
+	clrscr();
+	fstream fp;
+	fp.open("student.dat", ios::in);
+	student temp;
+	int flag = 0;
 
+    fp.read((char *)&temp, sizeof(student));
+	while(!fp.eof())
+	{
+		if(strcmp(name,temp.get_name())==0)
+		{
+			cout<<"\n\n\n\t\t\tSTUDENT FOUND\n\t\t\t============";
+			cout<<"ID: "<<temp.get_id()<<endl;
+			cout<<"Name: "<<temp.get_name()<<endl;
+			//PRINT MORE DETAILS
+			flag = 1;
+            getchar();
+            break;
+		}
+		fp.read((char *)&temp, sizeof(student));
+	}
+	if(flag == 0)
+		cout<<"NOT FOUND\n";
+	fp.close();
+	getch();
+
+}
+void admin::search(char *id,int type)
+{
+	//type = 1 => student, type = 2 => faculty
+		clrscr();
+	fstream fp;
+	int flag = 0;
+	if(type == 1)
+	{
+		fp.open("student.dat", ios::in);
+		student temp;
+	    fp.read((char *)&temp, sizeof(student));
+		while(!fp.eof())
+		{
+			if(strcmp(id,temp.get_id())==0)
+			{
+				cout<<"\n\n\n\t\t\tSTUDENT FOUND\n\t\t\t============";
+				cout<<"ID: "<<temp.get_id()<<endl;
+				cout<<"Name: "<<temp.get_name()<<endl;
+				//PRINT MORE DETAILS
+				flag = 1;
+	            getchar();
+	            break;
+			}
+			fp.read((char *)&temp, sizeof(student));
+		}
+
+	}
+	fp.close();
+	getch();
+
+}
+void admin::search()
+{
+	clrscr();
+	char name[50],id[50];
+	cout<<"1.Search by name\n2.Search by ID\n";
+	int ch;
+	cin>>ch;
+	if(ch == 1)
+	{
+		cin.ignore();
+    	cout<<"\n\n\t\tEnter the student name : ";
+   		cin.getline(name,50);
+   		search(name);
+	}
+		else if(ch == 2)
+		{
+			clrscr();
+			cout<<"1.Student\n2.Faculty\n";
+			int ch;
+			cin>>ch;
+			if(ch == 1)
+			{
+				cin.ignore();
+	   			cout<<"\n\n\t\tEnter student id : ";
+	    		cin.getline(id,50);
+	    		search(id,1);
+			}
+				else
+				{
+					cin.ignore();
+	   				cout<<"\n\n\t\tEnter faculty id : ";
+	    			cin.getline(id,50);
+	    			search(id,2);
+				}
+			
+		}
+
+}
 
 void admin::add_student()
 {

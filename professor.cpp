@@ -179,7 +179,7 @@ void Professor::disp()
                   while(fr.read((char *)&tem, sizeof(Professor)))
                   {
                     if(strcmp(tem.get_id(), id)==0)
-                    {  fw.write((char *)this, sizeof(tem));cout<<"laslsal";}
+                    {  fw.write((char *)this, sizeof(tem));//cout<<"laslsal";}
                     else
                       fw.write((char *)&tem, sizeof(tem));
                   }

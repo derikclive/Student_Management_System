@@ -104,6 +104,12 @@ public:
     {
       return grd;
     }
+    void display()
+    {
+      cout<<"Course Code: "<<course_code;
+      cout<<"\nGrade: "<<grd<<endl;
+      cout<<"Marks: "<<marks<<endl;
+    }
 
     friend istream& operator >> (istream &i, grade &g);
 };
@@ -119,6 +125,7 @@ class student :public user
 public:
     int login();
     int Register();
+    void disp();
     student()
     {
       strcpy(name, "\0");
@@ -232,6 +239,7 @@ public:
     }
 
     friend istream& operator >> (istream &i, student &s);
+    void get_ranklist();
 };
 
 
@@ -331,7 +339,10 @@ int student::login()
       cout<<"\n\t\t\tInvalid user name or password.";
   fp.close();
   if(flag)
-    cout<<"\nLogged in.";
+    {
+      cout<<"\nLogged in.";
+      temp.disp();
+    }
     return 1;
 }
 
@@ -371,4 +382,42 @@ int student::Register()
   remove("student.dat");
   rename("temp.dat", "student.dat");
   return flag;
+}
+
+inline void student::disp()
+{
+  int ch;
+  do
+  {
+    cout<<"\n\n1. View Report Card\n2. View Ranklist\n3.Logout\n\n";
+    cin>>ch;
+    switch(ch)
+    {
+      case 1:
+        {
+          cout<<"\n";
+          cout<<"Name: "<<name<<endl;
+          cout<<"Section: "<<section<<endl;
+          cout<<"ID: "<<id<<endl;
+          cout<<"CGPA: "<<cgpa<<endl;
+          cout<<"Grades: \n";
+          for (int i = 0; i < n; ++i)
+          {
+            grad[i].display();
+          }
+
+
+        }
+        break;
+      case 2:
+        {
+          get_ranklist();
+        }
+        break;
+      default: 
+        cout<<"Invalid choice\n";
+    }
+
+  }while(ch!=3);
+  
 }

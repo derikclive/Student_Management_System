@@ -83,7 +83,7 @@ void display_options()
         do
         {
         clrscr();
-        cout<<"\n\n\t\t1. Add Student\n\n\t\t2. Remove Student\n\n\t\t3. Add Professor\n\n\t\t4. Remove Professor\n\n\t\t5.Enroll Students \n\n\t\t6.View Gradesheet\n\n\t\t7.Generate Ranklist\n\n\t\t8.Logout\n\n\t\tEnter choice:";
+        cout<<"\n\n\t\t1. Add Student\n\n\t\t2. Remove Student\n\n\t\t3. Add Professor\n\n\t\t4. Remove Professor\n\n\t\t5.Enroll Students \n\n\t\t6.View Gradesheet\n\n\t\t7.Generate Ranklist\n\n\t\t8.Search\n\n\t\t9.Logout\n\n\t\tEnter choice:";
         cin>>ch;
         switch(ch)
         {
@@ -123,12 +123,106 @@ void display_options()
                       temp.get_ranklist();
                     }
                     break;
-            case 8:{
+            case 9:{
                       clrscr();
                       cout<<"\nYou have sucessfully logged out.";
                       main();
                     }
                     break;
+            case 8:
+                    {
+                      clrscr();
+                      admin temp;
+                      temp.search();
+                    }
+                    break;
         }
-      }while(ch!=8);
+      }while(ch!=9);
+}
+void student::get_ranklist()
+{
+  clrscr();
+  int i,j;
+  grade a[10];
+    int cre[10];
+    int h[10];
+    int m;
+    int tot;
+    float tot1;
+    int d;
+    float cgpa, cg[1000], t;
+    d=0;
+    subject tem;
+     cout<<"\n\n\n\t\t\t\t\tRANKLIST\n\t\t\t\t===============";
+      fstream fp, f, g;
+     fp.open("student.dat", ios::in);
+
+    student temp;
+    student b[1000];
+    g.open("subject.dat", ios::in);
+
+    while(fp.read((char *)&temp, sizeof(student)))
+    {
+        tot=0;
+        tot1=0;
+
+
+        m=temp.get_n();
+
+        for(i=0;i<m;i++)
+        {
+        a[i]=temp.get_grade(i);
+
+        g.seekg(0, ios::beg);
+        g.read((char*)&tem, sizeof(subject));
+        while(!g.eof())
+        {
+            if(strcmp(a[i].get_c(),tem.get_code())==0)
+            {cre[i]=tem.get_credit();break;}
+            g.read((char*)&tem, sizeof(subject));
+        }
+
+            tot+=cre[i];
+            h[i]=a[i].get_gra()*cre[i];
+            tot1+=h[i];
+
+        }
+        cgpa=tot1/tot;
+        cg[d]=cgpa;
+        temp.mod_cgpa(cgpa);
+        b[d]=temp;
+        d++;
+    }
+    g.close();
+    fp.close();
+
+    for(i=0;i<d;i++)
+    {
+      for(j=0;j<d-i-1;j++)
+      {
+        if(cg[j]<cg[j+1])
+        {
+          t=cg[j];
+          cg[j]=cg[j+1];
+          cg[j+1]=t;
+
+          temp=b[j];
+          b[j]=b[j+1];
+          b[j+1]=temp;
+        }
+      }
+    }
+    cout.width(30);cout<<left;
+    cout<<"\nStudent name";
+    cout.width(20);cout<<left;
+    cout<<"  CGPA";
+    for(i=0;i<d;i++)
+    {
+      cout<<"\n";
+      cout.width(30);cout<<left;
+      cout<<b[i].get_name();
+      cout.width(20);cout<<left;
+      cout<<cg[i];
+    }
+    getch();
 }
