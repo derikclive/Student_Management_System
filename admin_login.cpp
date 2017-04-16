@@ -9,7 +9,7 @@
 using namespace std;
 
 
-class admin: public user  
+class admin: public user
 {
 public:
     char *get_user()
@@ -30,6 +30,16 @@ public:
         strcpy(password, pass);
         cout<<password;
     }
+    int login()
+    {
+      return 0;
+    }
+
+    int Register()
+    {
+      return 0;
+    }
+
     void add_student();
     void remove_student();
     void add_professor();
@@ -185,7 +195,7 @@ void admin::search()
 	    			cin.getline(id,50);
 	    			search(id,2);
 				}
-			
+
 		}
 
 }
@@ -470,6 +480,7 @@ void admin::get_ranklist()
 
     student temp;
     student b[1000];
+
     g.open("subject.dat", ios::in);
 
     while(fp.read((char *)&temp, sizeof(student)))
@@ -513,13 +524,15 @@ void admin::get_ranklist()
     	{
     		if(cg[j]<cg[j+1])
     		{
-    			t=cg[j];
-    			cg[j]=cg[j+1];
-    			cg[j+1]=t;
+    		//	t=cg[j];
+    			//cg[j]=cg[j+1];
+    			//cg[j+1]=t;
 
-    			temp=b[j];
-    			b[j]=b[j+1];
-    			b[j+1]=temp;
+          swap(cg[j],cg[j+1]);
+          swap(b[j],b[j+1]);
+    			//temp=b[j];
+    			//b[j]=b[j+1];
+    			//b[j+1]=temp;
     		}
     	}
     }

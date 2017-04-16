@@ -261,10 +261,26 @@ istream& operator >> (istream &i, grade &g){
 
 inline void student::get_details()
 {
-    //cin>>noskipws;
-    cin.ignore();
-    cout<<"\n\n\t\tEnter the student name : ";
-    cin.getline(name,50);
+    try
+    {
+      cin.ignore();
+      cout<<"\n\n\t\tEnter the student name : ";
+      cin.getline(name,50);
+      for(int i=0;i<strlen(name);i++)
+      {
+        if(name[i]>65&&name[i]<65+26)
+        ;
+        else if(name[i]>97&&name[i]<97+26)
+        ;
+        else
+          throw "\n\t\tNAME CAN ONLY HAVE ALPHABETS\n";
+
+      }
+    }
+    catch(const char *a){
+      cout<<a;
+      this->get_details();
+    }
     cout<<"\n\n\t\tEnter the registration number : ";
     cin>>id;
     cout<<"\n\n\t\tEnter the section : ";
@@ -414,10 +430,10 @@ inline void student::disp()
           get_ranklist();
         }
         break;
-      default: 
+      default:
         cout<<"Invalid choice\n";
     }
 
   }while(ch!=3);
-  
+
 }

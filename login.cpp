@@ -7,6 +7,7 @@
 #define clrscr() system("clear");
 using namespace std;
 
+
 class user;
 class admin;
 class subject;
@@ -26,6 +27,15 @@ int main();
 int ad_login();
 void fac_login();
 void display_options();
+template <class T>
+void swap(T *a, T *b){
+  T temp = *a;
+  *a = *b;
+  *b = temp;
+}
+
+template void swap<float>(float*, float*);
+template void swap<student>(student*, student *);
 
 int main()
 {
@@ -70,7 +80,7 @@ int main()
            u->login();
         }
       }
-    } 
+    }
 
     return 0;
 }

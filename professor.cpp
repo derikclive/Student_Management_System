@@ -80,9 +80,25 @@ public:
 
 void Professor::get_details()
 {
-  cin.ignore();
-  cout<<"\nEnter the name of the Faculty : ";
-  cin.getline(this->name, 50);
+  try{
+    cin.ignore();
+    cout<<"\nEnter the name of the Faculty : ";
+    cin.getline(this->name, 50);
+    for(int i=0;i<strlen(this->name);i++)
+    {
+      if(this->name[i]>65&&this->name[i]<65+26)
+      ;
+      else if(this->name[i]>97&&this->name[i]<97+26)
+      ;
+      else
+        throw "\n\t\tNAME CAN ONLY HAVE ALPHABETS\n";
+
+    }
+}
+catch(const char *a){
+  cout<<a;
+  this->get_details();
+}
   cout<<"\nEnter the ID : ";
   cin>>this->id;
 }
@@ -179,7 +195,7 @@ void Professor::disp()
                   while(fr.read((char *)&tem, sizeof(Professor)))
                   {
                     if(strcmp(tem.get_id(), id)==0)
-                    {  fw.write((char *)this, sizeof(tem));//cout<<"laslsal";}
+                    {  fw.write((char *)this, sizeof(tem));}
                     else
                       fw.write((char *)&tem, sizeof(tem));
                   }

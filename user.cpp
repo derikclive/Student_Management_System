@@ -8,19 +8,13 @@ public:
     password[0]=id[0]='\0';
   }
   user(char id[10],char password[40]){
-    strcpy(this->id,id);
+    strcpy(this->id,id  );
     strcpy(this->password,password);
   }
 
-  virtual int login()
-  {
-    //do nothing
-  }
+  virtual int login() = 0;
 
-  virtual int Register()
-  {
-    //do nothing
-  }
+  virtual int Register() = 0;
 
   char* getUserid(){
     return id;
