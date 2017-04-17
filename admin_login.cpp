@@ -115,8 +115,11 @@ void admin::search(char * name)
 		if(strcmp(name,temp.get_name())==0)
 		{
 			cout<<"\n\n\n\t\t\tSTUDENT FOUND\n\t\t\t============";
-			cout<<"ID: "<<temp.get_id()<<endl;
-			cout<<"Name: "<<temp.get_name()<<endl;
+			cout<<"\n\nID: "<<temp.get_id()<<endl;
+        cout<<"Name: "<<temp.get_name()<<endl;
+        cout<<"Section: "<<temp.get_section()<<endl;
+        cout<<"CGPA: "<<temp.get_cgpa()<<endl;
+        cout<<"Semester: "<<temp.get_sem()<<endl;
 			//PRINT MORE DETAILS
 			flag = 1;
             getchar();
@@ -146,8 +149,11 @@ void admin::search(char *id,int type)
 			if(strcmp(id,temp.get_id())==0)
 			{
 				cout<<"\n\n\n\t\t\tSTUDENT FOUND\n\t\t\t============";
-				cout<<"ID: "<<temp.get_id()<<endl;
+				cout<<"\n\nID: "<<temp.get_id()<<endl;
 				cout<<"Name: "<<temp.get_name()<<endl;
+        cout<<"Section: "<<temp.get_section()<<endl;
+        cout<<"CGPA: "<<temp.get_cgpa()<<endl;
+        cout<<"Semester: "<<temp.get_sem()<<endl;
 				//PRINT MORE DETAILS
 				flag = 1;
 	            getchar();
@@ -155,6 +161,29 @@ void admin::search(char *id,int type)
 			}
 			fp.read((char *)&temp, sizeof(student));
 		}
+  }
+    else if(type == 2)
+    {
+      fp.open("faculty.dat", ios::in);
+      Professor temp;
+        fp.read((char *)&temp, sizeof(Professor));
+      while(!fp.eof())
+      {
+        if(strcmp(id,temp.get_id())==0)
+        {
+          cout<<"\n\n\n\t\t\tPROFESSOR FOUND\n\t\t\t============";
+          cout<<"\n\nID: "<<temp.get_id()<<endl;
+          cout<<"Name: "<<temp.get_name()<<endl;
+          subject sub = temp.get_sub();
+          cout<<"Course: "<<sub.get_c()<<endl;
+          //PRINT MORE DETAILS
+          flag = 1;
+                getchar();
+                break;
+        }
+        fp.read((char *)&temp, sizeof(student));
+      }
+  
 
 	}
 	fp.close();

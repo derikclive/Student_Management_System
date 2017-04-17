@@ -154,6 +154,13 @@ public:
     {
         return name;
     }
+    float get_cgpa(){
+      return cgpa;
+    }
+    char get_section()
+    {
+      return section;
+    }
 
     void mod_marks(int y,int marks)
     {
@@ -240,6 +247,11 @@ public:
 
     friend istream& operator >> (istream &i, student &s);
     void get_ranklist();
+
+    int get_sem()
+    {
+      return sem;
+    }
 };
 
 

@@ -41,7 +41,7 @@ int main()
 {
     clrscr();
     int ch;
-    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\tEnter choice : ";
+    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\t\t4.Exit\n\n\t\tEnter choice : ";
     cin>>ch;
     user *u;
     switch(ch)
@@ -64,6 +64,10 @@ int main()
               u = &s;
               break;
             }
+      case 4:
+      	{
+      		exit(0);
+      	}
       default : cout<<"\n\n\t\tEnter a valid choice.";
     }
     if(ch==2||ch==3)

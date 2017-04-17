@@ -30,6 +30,10 @@ public:
   {
     return name;
   }
+  subject get_sub()
+  {
+    return sub;
+  }
 
   int check_pwd(char *str)
   {
