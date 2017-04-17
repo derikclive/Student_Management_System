@@ -41,7 +41,7 @@ int main()
 {
     clrscr();
     int ch;
-    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\t\t4.Exit\n\n\t\tEnter choice : ";
+    cout<<"\n\n\n\t\t\t1. Admin Login\n\n\t\t\t2. Faculty Login\n\n\t\t\t3. Student Login\n\n\t\t\t4. Exit\n\n\t\tEnter choice : ";
     cin>>ch;
     user *u;
     switch(ch)
@@ -97,7 +97,7 @@ void display_options()
         do
         {
         clrscr();
-        cout<<"\n\n\t\t1. Add Student\n\n\t\t2. Remove Student\n\n\t\t3. Add Professor\n\n\t\t4. Remove Professor\n\n\t\t5.Enroll Students \n\n\t\t6.View Gradesheet\n\n\t\t7.Generate Ranklist\n\n\t\t8.Search\n\n\t\t9.Logout\n\n\t\tEnter choice:";
+        cout<<"\n\n\t\t1. Add Student\n\n\t\t2. Remove Student\n\n\t\t3. Add Professor\n\n\t\t4. Remove Professor\n\n\t\t5. Enroll Students \n\n\t\t6. View Gradesheet\n\n\t\t7. Generate Ranklist\n\n\t\t8. Search\n\n\t\t9. Logout\n\n\t\tEnter choice:";
         cin>>ch;
         switch(ch)
         {
@@ -139,7 +139,8 @@ void display_options()
                     break;
             case 9:{
                       clrscr();
-                      cout<<"\nYou have sucessfully logged out.";
+                      cout<<"\nYou have sucessfully logged out";
+                      getch();
                       main();
                     }
                     break;

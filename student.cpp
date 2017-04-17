@@ -368,7 +368,7 @@ int student::login()
   fp.close();
   if(flag)
     {
-      cout<<"\nLogged in.";
+      cout<<"\n\n\n\t\t\tLogged in.";
       temp.disp();
     }
     return 1;
@@ -417,7 +417,8 @@ inline void student::disp()
   int ch;
   do
   {
-    cout<<"\n\n1. View Report Card\n2. View Ranklist\n3.Logout\n\n";
+    cout<<"\n\n\t\t\t1. View Report Card\n\n\t\t\t2. View Ranklist\n\n\t\t\t3. Logout\n\n";
+    cout<<"\n\t\tEnter your choice:";
     cin>>ch;
     switch(ch)
     {
@@ -442,6 +443,14 @@ inline void student::disp()
           get_ranklist();
         }
         break;
+      case 3:
+      {
+        clrscr();
+        cout<<"\n\t\t\tYou have sucessfully logged out";
+        getch();
+        main();
+      }
+
       default:
         cout<<"Invalid choice\n";
     }
